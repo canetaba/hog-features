@@ -1,5 +1,8 @@
 import numpy as np
-
+'''
+Created on Oct 19, 2019
+@author: María José Briceño
+'''
 features = np.fromfile('features.np', dtype=int)
 test_features = np.fromfile('featuresTest.np', dtype=int)
 etiquetas = np.fromfile('labels.np', dtype=int)
