@@ -13,8 +13,6 @@ features = np.fromfile(features_path, np.float32)
 test_features = np.fromfile(features_test_path, np.float32)
 labels = np.fromfile(label_path, dtype =int)
 test_labels = np.fromfile(label_test_path, dtype=int)
-print(labels)
-
 
 features = np.reshape(features, (14000, 512))
 test_features = np.reshape(test_features, (6000, 512))
@@ -22,7 +20,6 @@ test_features = np.reshape(test_features, (6000, 512))
 labels = np.reshape(labels, (14000, 1))
 test_labels = np.reshape(test_labels, (6000, 1))
 
-print(labels)
 
 # distancia euclidiana
 distancia_euclidiana = np.array([])
@@ -30,8 +27,11 @@ etiqueta_base = np.array([])
 
 # calculamos la distancia euclidiana
 # for row_a in test_features:
-row_a = test_features[10]
-label_a = test_labels[10]
+row_a = test_features[4061]
+label_a = test_labels[4061]
+
+
+
 
 # Calcula el vector de distancia entre la imagen de consulta versus las imagenes de la base de datos
 for row_b in features:
@@ -39,8 +39,14 @@ for row_b in features:
     distancia_euclidiana = np.append(distancia_euclidiana, dist, axis=None)
 
 # Arreglo de etiquetas
+# Buscamos el numero total de ground truth
+ground_truth = 1
 for row_c in labels:
+    if row_c == int(label_a):
+        ground_truth = ground_truth +1
     etiqueta_base = np.append(etiqueta_base, row_c)
+print ("ground trhuth", ground_truth)
+
 
 # copio el arreglo
 aux_euclidiano = np.copy(distancia_euclidiana)
@@ -52,7 +58,7 @@ aux_euclidiano.sort()
 result = np.array([])
 
 # Escojo con cuantas imagenes quiero comparar la imagen de consulta con las de la BD
-numero_imagenes = distancia_euclidiana.size
+numero_imagenes = 11
 
 # Busco las posiciones de las etiquetas de acuerdo a los valores de las distancias
 for i in range(0,numero_imagenes):
@@ -76,11 +82,10 @@ for row in result:
     # Si la etiqueta de la consulta es igual a la de la clase
     if int(label_a) == valor_etiqueta:
         positivo = positivo + 1
-        average_precision = (positivo / contador) + average_precision
+        average_precision =(positivo / contador) + average_precision
 
 # Imprimo average precision
-print("average_precision ", average_precision)
-print("contador ", contador)
+print("average_precision ", average_precision/numero_imagenes)
 
 # Calculo de mAP
 # AP / Nº total de queries
