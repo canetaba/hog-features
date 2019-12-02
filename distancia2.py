@@ -2,7 +2,8 @@ import numpy as np
 
 '''
 Created on Oct 19, 2019
-@author: María José Briceño
+@author:    María José Briceño
+            Guillermo Otarola
 '''
 label_path = 'C:/Users/mjnik/Desktop/Programas Python/computer_vision/Sketch_EITZ/labels.np'
 label_test_path = 'C:/Users/mjnik/Desktop/Programas Python/computer_vision/Sketch_EITZ/labelsTest.np'
@@ -27,8 +28,8 @@ etiqueta_base = np.array([])
 
 # calculamos la distancia euclidiana
 # for row_a in test_features:
-row_a = test_features[4061]
-label_a = test_labels[4061]
+row_a = test_features[222]
+label_a = test_labels[222]
 
 
 
@@ -45,8 +46,6 @@ for row_c in labels:
     if row_c == int(label_a):
         ground_truth = ground_truth +1
     etiqueta_base = np.append(etiqueta_base, row_c)
-print ("ground trhuth", ground_truth)
-
 
 # copio el arreglo
 aux_euclidiano = np.copy(distancia_euclidiana)
